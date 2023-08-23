@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${{ values.component_id }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ${{ values.component_id }}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ${{ values.component_id }}
+    spec:
+      containers:
+        - name: ${{ values.component_id }}
+          image: docker.io/tanuuidp/demo:0.0.1
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512M
+            requests:
+              cpu: 200m
+              memory: 256M
